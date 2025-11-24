@@ -31,7 +31,7 @@ CK_RV aes_gcm_wrapping(CK_SESSION_HANDLE session) {
     CK_ULONG wrapped_key_iv_len = sizeof(wrapped_key_iv);
 
     CK_OBJECT_HANDLE wrapping_key = CK_INVALID_HANDLE;
-    CK_RV rv = generate_aes_token_key_for_wrapping(session, 16, &wrapping_key);
+    CK_RV rv = generate_aes_session_key_for_wrapping(session, 16, &wrapping_key);
     if (rv != CKR_OK) {
         fprintf(stderr, "Wrapping key generation failed: %lu\n", rv);
         goto done;

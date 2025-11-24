@@ -5,6 +5,10 @@ CK_RV generate_aes_token_key_for_wrapping(CK_SESSION_HANDLE session,
                                           CK_ULONG key_length_bytes,
                                           CK_OBJECT_HANDLE_PTR key);
 
+CK_RV generate_aes_session_key_for_wrapping(CK_SESSION_HANDLE session,
+                                            CK_ULONG key_length_bytes,
+                                            CK_OBJECT_HANDLE_PTR key);
+
 CK_RV generate_aes_session_key(CK_SESSION_HANDLE session,
                                CK_ULONG key_length_bytes,
                                CK_OBJECT_HANDLE_PTR key);

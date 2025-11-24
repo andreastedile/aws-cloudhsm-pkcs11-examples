@@ -34,6 +34,27 @@ CK_RV generate_aes_token_key_for_wrapping(CK_SESSION_HANDLE session,
     return rv;
 }
 
+CK_RV generate_aes_session_key_for_wrapping(CK_SESSION_HANDLE session,
+                                            CK_ULONG key_length_bytes,
+                                            CK_OBJECT_HANDLE_PTR key) {
+    CK_RV rv;
+    CK_MECHANISM mech;
+
+    mech.mechanism = CKM_AES_KEY_GEN;
+    mech.ulParameterLen = 0;
+    mech.pParameter = NULL;
+
+    CK_ATTRIBUTE template[] = {
+            {CKA_TOKEN,     &false_val,         sizeof(CK_BBOOL)},
+            {CKA_WRAP,      &true_val,          sizeof(CK_BBOOL)},
+            {CKA_UNWRAP,    &true_val,          sizeof(CK_BBOOL)},
+            {CKA_VALUE_LEN, &key_length_bytes,  sizeof(key_length_bytes)}
+    };
+
+    rv = funcs->C_GenerateKey(session, &mech, template, sizeof(template) / sizeof(CK_ATTRIBUTE), key);
+    return rv;
+}
+
 /**
  * Generate an AES key.
  * @param session
